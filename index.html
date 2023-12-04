@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3D Card</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+       box-sizing: border-box;
+        min-height: 100vh;
+        background-color: darkslategrey;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .transform-container {
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+    .transform-card {
+        border-radius: 10px;
+        width: 400px;
+        height: 500px;
+        background-color: #fff;
+        transition: transform 0.2s linear;
+        box-shadow:
+                0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12)
+      }
+</style>
+<body>
+<div class="transform-container">
+    <div class="transform-card"></div>
+</div>
+<script>
+  const transformator = 10
+    const cards = document.querySelectorAll('.transform-container');
+    for(let i = 0; i < cards.length; i++){
+        const card = cards[i];
+        card.addEventListener('mousemove', startRotate)
+        card.addEventListener('mouseout', stopRotate)
+    }
+
+    function startRotate(e){
+        const cardItem = this.querySelector('.transform-card');
+        const halfHeight = cardItem.offsetHeight / 2;
+        const halfWidth = cardItem.offsetWidth / 2;
+        cardItem.style.transform = 'rotateX('+-(e.offsetY-halfHeight)/transformator + 'deg) rotateY('+ (e.offsetX-halfWidth)/transformator +'deg)'
+    }
+
+    function stopRotate(){
+        const cardItem = this.querySelector('.transform-card');
+        cardItem.style.transform = 'rotate(0)'
+    }
+</script>
+</body>
+</html>
